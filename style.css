@@ -1,0 +1,22 @@
+/* Style global */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Espacement des conteneurs */
+div[data-testid="stVerticalBlock"] > div {
+    gap: 0.8rem;
+}
+
+/* Titres de section */
+h2 {
+    color: #2b579a;
+    padding-bottom: 5px;
+    margin-bottom: 20px !important;
+}
+
+/* Suppression des marges inutiles sur les séparateurs */
+hr {
+    margin-top: 1rem !important;
+    margin-bottom: 1.5rem !important;
+}
