@@ -2,7 +2,7 @@ from utils.imports import *
 from utils.constants import *
 
 from ui.components import *
-from ui.header import show_header
+from ui.header import cv_header
 from ui.contacts import show_contact
 
 
@@ -38,7 +38,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-show_header()
+cv_header()
 
 show_contact()
 

@@ -100,3 +100,11 @@ LANGUES_ET_COMPETENCES = [
         ]
     }
 ]
+
+
+PAGE_SIZE = 15
+
+VENDOR_COLORS = {
+    1: [255, 99, 71, 160],   # Tomate / Rouge pour VendorID 1
+    2: [30, 144, 255, 160],  # Bleu Dodger pour VendorID 2
+}
