@@ -8,6 +8,7 @@ dependencies = [
     "geopy>=2.5.0",
     "jupyter>=1.1.1",
     "matplotlib>=3.11.2",
+    "missingno>=0.5.2",
     "numpy>=2.5.3",
     "pandas>=3.0.6",
     "plotly>=7.1.0",
