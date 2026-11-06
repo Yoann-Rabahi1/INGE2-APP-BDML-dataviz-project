@@ -93,6 +93,32 @@ def home() -> None:
         unsafe_allow_html=True,
     )
 
+    # --- Card du cours ---
+    st.markdown(
+        f"""
+        <div style="
+            background-color: white;
+            border: 1px solid #d1fae5;
+            border-top: 4px solid {GREEN};
+            padding: 1rem 1.4rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        ">
+            <div style="color: #6b7280; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;">
+                🎓 Projet réalisé dans le cadre du cours
+            </div>
+            <div style="color: {GREEN_DARK}; font-size: 1.3rem; font-weight: 700; margin: 0.2rem 0;">
+                Data Visualization and Business Intelligence
+            </div>
+            <div style="color: #374151; font-size: 0.95rem;">
+                👨‍🏫 Enseignant : <b>MATHEW Mano Joseph</b>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
     # --- À quoi sert l'interface ---
     st.header("À quoi sert cette interface ?")
     st.markdown(
