@@ -1,8 +1,11 @@
 from utils.imports import pd, st, np, px
 from ui.pagination import df_all
 from ui.style import CUSTOM_CSS
+from data.loaders import df_process
 
 def data_processing(df: pd.DataFrame):
+
+    df = df_process(df)
 
     st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
     # --- Titre Principal ---
@@ -40,9 +43,25 @@ def data_processing(df: pd.DataFrame):
                 value=f"{(df.isna().sum().sum() / df.shape[0]) * 100:.2f} %"
             )
 
+
     # --- 3) Description du Dataset ---
     st.header("3) Description du Dataset")
     st.dataframe(df.describe(), use_container_width=True)
+
+    # Case d'interprétation - Description
+    st.info("""
+    **Interprétation statistique :**
+
+    Ce tableau représente différentes **statistiques descriptives** (moyenne, écart-type, min, max) et de **dispersions** (quartile) sur l'ensemble des variables du dataset.
+    En plus d'avoir une idée sur les **échelles de ces variables** il permet aussi de repérer de potentielles anomalies dans nos données, notamment :
+
+    * min(fare_amount) = -52
+    * min(tip_amount) = -0.75
+    * min(total_amount) = -52.8
+
+    Or ce sont trois variables censées être comprise entre [0, +Inf]
+
+    """)
 
     # --- 4) Informations sur le Dataset ---
     st.header("4) Informations sur le Dataset")
@@ -66,9 +85,9 @@ def data_processing(df: pd.DataFrame):
     # 5.1
     st.subheader("5.1) Conversion des heures de réceptions, dépôts et VendorID")
 
-    df["tpep_pickup_datetime"] = pd.to_datetime(df["tpep_pickup_datetime"])
-    df["tpep_dropoff_datetime"] = pd.to_datetime(df["tpep_dropoff_datetime"])
-    df["VendorID"] = df["VendorID"].astype(str)
+    # df["tpep_pickup_datetime"] = pd.to_datetime(df["tpep_pickup_datetime"])
+    # df["tpep_dropoff_datetime"] = pd.to_datetime(df["tpep_dropoff_datetime"])
+    # df["VendorID"] = df["VendorID"].astype(str)
 
     st.dataframe(pd.DataFrame(
         data={
@@ -82,11 +101,27 @@ def data_processing(df: pd.DataFrame):
     # 5.2
     st.subheader("5.2) Ajout de la colonne `duree_trajet`")
 
-    df['duree_trajet'] = (df['tpep_dropoff_datetime'] - df['tpep_pickup_datetime']).dt.total_seconds() // 60
+    # df['duree_trajet'] = (df['tpep_dropoff_datetime'] - df['tpep_pickup_datetime']).dt.total_seconds() // 60
 
     st.latex(r'''
-        temps\_trajet = \frac{(datetime_{dropoff} - datetime_{pickup})_{total\_seconds}}{60} 
+        temps\_trajet = \frac{(datetime_{d} - datetime_{p})_{total\_seconds}}{60} 
     ''')
+
+    st.markdown("""
+
+    Où
+
+    - $d$ = dropoff
+    - $p$ = pickup
+
+    """)
+
+    st.info("""
+
+    Ici la nouvelle variable **temps_trajet** est intégré dans notre dataset et nous permettra d'approndir nos analyses
+    dans la partie d'analyse des données.
+    
+    """)
 
     with st.container(border=True):
         fig_duree = px.histogram(
@@ -99,11 +134,18 @@ def data_processing(df: pd.DataFrame):
         )
         st.plotly_chart(fig_duree, use_container_width=True)
 
+    # Case d'interprétation - Durée
+    st.info("""
+    **Interprétation de la durée des trajets :**
+    * La majorité des courses se concentrent sur des durées courtes (inférieures à 30 minutes), ce qui correspond à des trajets urbains typiques.
+    * La comparaison entre les deux `VendorID` montre des distributions similaires, reflétant des parts de marché ou des flottes homogènes.
+    """)
+
     # 5.3
     st.subheader("5.3) Ajout de la colonne `vitesse_moyenne`")
 
-    df["vitesse_moyenne"] = (df["trip_distance"] / df["duree_trajet"]) * 60
-    df["vitesse_moyenne"] = df["vitesse_moyenne"].replace([np.inf, -np.inf], np.nan)
+    # df["vitesse_moyenne"] = (df["trip_distance"] / df["duree_trajet"]) * 60
+    # df["vitesse_moyenne"] = df["vitesse_moyenne"].replace([np.inf, -np.inf], np.nan)
 
     st.latex(r'''
         vitesse_{moy} = \left(\frac{distance}{temps}\right) \cdot 60
@@ -120,10 +162,17 @@ def data_processing(df: pd.DataFrame):
         )
         st.plotly_chart(fig_vitesse, use_container_width=True)
 
+    # Case d'interprétation - Vitesse
+    st.info("""
+    **Interprétation de la vitesse moyenne :**
+    * La vitesse moyenne des ubers se situe entre 10 et 20 km/h, cette moyenne peut s'expliquer en raison du trafic routier important dans NYC provoquant des embouteillages et en prenant aussi en compte la signalisation.
+    * Les valeurs au dessus de ma moyenne peuvent être expliquées par des courses en dehors de l'agglomération où les embouteillages et les signalisations sont fortement réduits.
+    """)
+
     # 5.4
     st.subheader("5.4) Ajout de la colonne `hour`")
 
-    df["hour"] = df["tpep_pickup_datetime"].dt.hour
+    # df["hour"] = df["tpep_pickup_datetime"].dt.hour
 
     with st.container(border=True):
         df_hourly_count = df["hour"].value_counts().sort_index().reset_index()
@@ -146,6 +195,13 @@ def data_processing(df: pd.DataFrame):
         fig_hour.update_layout(margin=dict(l=20, r=20, t=40, b=20))
         
         st.plotly_chart(fig_hour, use_container_width=True)
+
+    # Case d'interprétation - Volume horaire
+    st.info("""
+    **Interprétation de l'activité horaire :**
+    * L'aire sous la courbe met en évidence les heures de forte affluence (pics de demandes) et les creux de nuit. C'est un indicateur clé pour l'optimisation des tarifs dynamiques ou la gestion des disponibilités des chauffeurs.
+    * On remarque qu'en moyenne les horaires où les clients sont récupérés se situent autour de 17H00 à 24H00 avec des pics à 23H00.
+    """)
 
     # 5.5
     st.subheader("5.5) Analyse des outliers")
@@ -191,3 +247,10 @@ def data_processing(df: pd.DataFrame):
                 template="plotly_white"
             )
             st.plotly_chart(fig_box4, use_container_width=True)
+
+    # Case d'interprétation - Outliers
+    st.info("""
+    **Interprétation de l'analyse des valeurs aberrantes (Outliers) :**
+    * Les boîtes à moustaches confirment la présence de valeurs extrêmes importantes (distances très élevées, montants de courses atypiques ou vitesses irréalistes). 
+    * **Recommandation :** Il est conseillé d'appliquer un filtrage par quantiles ou des bornes métiers avant d'entamer les phases de modélisation statistique, d'analyse exploratoire des données et de machine learning.
+    """)

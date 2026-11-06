@@ -110,3 +110,147 @@ VENDOR_COLORS = {
 }
 
 DATA_URL = r"https://raw.githubusercontent.com/uber-web/kepler.gl-data/master/nyctrips/data.csv"
+
+MY_COURSES = [
+
+    ###########################################################################
+    # INGE1
+    ###########################################################################    
+
+    ###########################################################################
+    # SEMESTRE 1
+    ###########################################################################
+
+    {
+        "nom_cours" : "Proba & statistiques",
+        "semestre" : 5,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["Dénombrements", "Variable Aléatoire Discrètes", "Variable Aléatoire Continues", "Statistiques Inférentielles"]
+    },
+    {
+        "nom_cours" : "Théorie du signal",
+        "semestre" : 5,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["Convolutions", "Analyse et décomposition de Fourrier", "Transformées de Fourrier", "Théorie de l'information"]
+    },
+    {
+        "nom_cours" : "Théorie des graphes",
+        "semestre" : 5,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["GO / GNO", "ACMP", "Algorithmes de PCC", "Ordonnancement PERT"]
+    },
+    {
+        "nom_cours" : "Système d'informations",
+        "semestre" : 5,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : None
+    },
+    {
+        "nom_cours" : "Programmation JAVA",
+        "semestre" : 5,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : None
+    },
+    {
+        "nom_cours" : "Python pour la Data Science",
+        "semestre" : 5,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["Apprentissage algorithmique", "Pandas", "Numpy", "Matplotlib", "Scikit-Learn"]
+    },
+    {
+        "nom_cours" : "Structure de données",
+        "semestre" : 5,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["Listes simplement chainées", "Arbre binaire", "Arbre binaire de recherche", "Arbre équilibré"]
+    },
+
+    
+    ###########################################################################
+    # SEMESTRE 2
+    ###########################################################################
+
+
+    {
+        "nom_cours" : "Base de données relationnelles",
+        "semestre" : 6,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["Dénombrements", "Variable Aléatoire Discrètes", "Variable Aléatoire Continues", "Statistiques Inférentielles"]
+    },
+    {
+        "nom_cours" : "Architecture des Ordinateurs",
+        "semestre" : 6,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : None
+    },
+    {
+        "nom_cours" : "Théorie des graphes",
+        "semestre" : 6,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["GO / GNO", "ACMP", "Algorithmes de PCC", "Ordonnancement PERT"]
+    },
+    {
+        "nom_cours" : "Développement Web",
+        "semestre" : 6,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["HTML", "CSS", "JS", "Nodejs", "Reactjs", "Expressjs", "API REST"]
+    },
+    {
+        "nom_cours" : "Optimisation & Compléxité",
+        "semestre" : 6,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["Compléxité", "NP Problème", "Algorithme A*", "Algorithme Génétique"]
+    },
+    {
+        "nom_cours" : "Programmation Avancée en JAVA",
+        "semestre" : 6,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["Apprentissage algorithmique", "Pandas", "Numpy", "Matplotlib", "Scikit-Learn"]
+    },
+    {
+        "nom_cours" : "Réseau et Protocole",
+        "semestre" : 6,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["Fibre", "Routage", "VLAN", "DHCP"]
+    },
+    {
+        "nom_cours" : "Système d'exploitation",
+        "semestre" : 6,
+        "annee_scolaire" : "2025 - 2026",
+        "liste_chapitre" : ["Processus", "Threading", "Sémaphore", "Mutex"]
+    },
+
+
+    ###########################################################################
+    # INGE2
+    ###########################################################################  
+
+    {
+        "nom_cours" : "Mathematics for data science",
+        "semestre" : 7,
+        "annee_scolaire" : "2026 - 2027",
+        "liste_chapitre" : [
+            "Algèbre Linéaire", "Géométrie Analytique", "Décomposition Matricielle", 
+            "Calcul et Optimisation", "Théorie Probabiliste", "Modélisation Statistiques",
+            "Statistiques Inférentielles"
+        ]
+    },
+    {
+        "nom_cours" : "API and Webservices",
+        "semestre" : 7,
+        "annee_scolaire" : "2026 - 2027",
+        "liste_chapitre" : ["API REST", "GraphQL", "WebHook", "SSE", "WebSocket"]
+    },
+    {
+        "nom_cours" : "Functionnal Programming with Scala",
+        "semestre" : 7,
+        "annee_scolaire" : "2026 - 2027",
+        "liste_chapitre" : None
+    },
+    {
+        "nom_cours" : "Machine Learning I",
+        "semestre" : 7,
+        "annee_scolaire" : "2026 - 2027",
+        "liste_chapitre" : ["Decision Tree", "Random Forest", "LogisticRegression", "SVM", "Gradient Descent", "KNN"]
+    }
+
+]

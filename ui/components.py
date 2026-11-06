@@ -1,4 +1,4 @@
-from utils.imports import *
+from utils.imports import st
 from utils.constants import *
 
 def afficher_experiences(liste_exp: list):
@@ -105,3 +105,69 @@ def show_experiences():
 
         st.header(":blue[Langues & Compétences]")
         afficher_langues_competences(LANGUES_ET_COMPETENCES)
+
+
+
+def afficher_carte_cours(cours):
+    """Affiche un cours unique sous forme de carte stylisée"""
+    with st.container():
+        st.markdown(
+            f"""
+            <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; background-color: white; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <h4 style="margin-top: 0; color: #1e293b;">{cours['nom_cours']}</h4>
+                <p style="color: #64748b; font-size: 0.9em; margin-bottom: 8px;"><b>{cours['annee_scolaire']}</b></p>
+            """, 
+            unsafe_allow_html=True
+        )
+        
+        if cours.get("liste_chapitre"):
+            badges = "".join([f"<span class='badge'>{chap}</span>" for chap in cours["liste_chapitre"]])
+            st.markdown(f"<div>{badges}</div>", unsafe_allow_html=True)
+        else:
+            st.markdown("<p style='color: gray; font-style: italic; font-size: 0.85em;'>Aucun chapitre renseigné</p>", unsafe_allow_html=True)
+            
+        st.markdown("</div>", unsafe_allow_html=True)
+
+def afficher_cours_par_matrice(liste_cours):
+    st.markdown("<h1 style='text-align: center;'>Mes Cours</h1>", unsafe_allow_html=True)
+    
+    # Regroupement par année / semestre
+    semestres = [5, 6, 7]
+    
+    for sem in semestres:
+        cours_sem = [c for c in liste_cours if c["semestre"] == sem]
+        if not cours_sem:
+            continue
+            
+        annee_label = "1ère Année" if sem in [5, 6] else "2ème Année"
+        st.markdown(f"## {annee_label} — Semestre {sem} <span style='font-size:0.6em; color:gray;'>({len(cours_sem)} cours)</span>", unsafe_allow_html=True)
+        
+        # Affichage en matrice de 2 colonnes
+        for i in range(0, len(cours_sem), 2):
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                afficher_carte_cours(cours_sem[i])
+                
+            with col2:
+                if i + 1 < len(cours_sem):
+                    afficher_carte_cours(cours_sem[i + 1])
+                    
+        st.markdown("<br>", unsafe_allow_html=True)
+
+# CSS pour les badges et l'alignement
+st.markdown("""
+    <style>
+    .badge {
+        display: inline-block;
+        background-color: #f1f5f9;
+        color: #334155;
+        padding: 3px 8px;
+        margin: 2px;
+        border-radius: 4px;
+        font-size: 0.75em;
+        font-weight: 500;
+        border: 1px solid #e2e8f0;
+    }
+    </style>
+""", unsafe_allow_html=True)
