@@ -10,7 +10,7 @@ df = get_dataframe(DATA_URL, sep=",")
 
 
 
-tab_1, tab_2, tab_3 = st.tabs(["Data loading & Processing", "Exploratory Data Analysis", "Machine Learning"])
+tab_1, tab_2= st.tabs(["Data loading & Processing", "Exploratory Data Analysis"])
 
 with tab_1:
     data_processing(df)
@@ -20,10 +20,6 @@ with tab_1:
 with tab_2:
     exploratory_analysis(df)
 
-
-
-with tab_3:
-    pass
 
 
 

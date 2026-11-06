@@ -1,11 +1,8 @@
 from utils.imports import pd, st, np, px
 from ui.pagination import df_all
 from ui.style import CUSTOM_CSS
-from data.loaders import df_process
 
 def data_processing(df: pd.DataFrame):
-
-    df = df_process(df)
 
     st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
     # --- Titre Principal ---
@@ -85,9 +82,9 @@ def data_processing(df: pd.DataFrame):
     # 5.1
     st.subheader("5.1) Conversion des heures de réceptions, dépôts et VendorID")
 
-    # df["tpep_pickup_datetime"] = pd.to_datetime(df["tpep_pickup_datetime"])
-    # df["tpep_dropoff_datetime"] = pd.to_datetime(df["tpep_dropoff_datetime"])
-    # df["VendorID"] = df["VendorID"].astype(str)
+    df["tpep_pickup_datetime"] = pd.to_datetime(df["tpep_pickup_datetime"])
+    df["tpep_dropoff_datetime"] = pd.to_datetime(df["tpep_dropoff_datetime"])
+    df["VendorID"] = df["VendorID"].astype(str)
 
     st.dataframe(pd.DataFrame(
         data={
@@ -101,7 +98,7 @@ def data_processing(df: pd.DataFrame):
     # 5.2
     st.subheader("5.2) Ajout de la colonne `duree_trajet`")
 
-    # df['duree_trajet'] = (df['tpep_dropoff_datetime'] - df['tpep_pickup_datetime']).dt.total_seconds() // 60
+    df['duree_trajet'] = (df['tpep_dropoff_datetime'] - df['tpep_pickup_datetime']).dt.total_seconds() // 60
 
     st.latex(r'''
         temps\_trajet = \frac{(datetime_{d} - datetime_{p})_{total\_seconds}}{60} 
@@ -144,8 +141,8 @@ def data_processing(df: pd.DataFrame):
     # 5.3
     st.subheader("5.3) Ajout de la colonne `vitesse_moyenne`")
 
-    # df["vitesse_moyenne"] = (df["trip_distance"] / df["duree_trajet"]) * 60
-    # df["vitesse_moyenne"] = df["vitesse_moyenne"].replace([np.inf, -np.inf], np.nan)
+    df["vitesse_moyenne"] = (df["trip_distance"] / df["duree_trajet"]) * 60
+    df["vitesse_moyenne"] = df["vitesse_moyenne"].replace([np.inf, -np.inf], np.nan)
 
     st.latex(r'''
         vitesse_{moy} = \left(\frac{distance}{temps}\right) \cdot 60
@@ -172,7 +169,7 @@ def data_processing(df: pd.DataFrame):
     # 5.4
     st.subheader("5.4) Ajout de la colonne `hour`")
 
-    # df["hour"] = df["tpep_pickup_datetime"].dt.hour
+    df["hour"] = df["tpep_pickup_datetime"].dt.hour
 
     with st.container(border=True):
         df_hourly_count = df["hour"].value_counts().sort_index().reset_index()
